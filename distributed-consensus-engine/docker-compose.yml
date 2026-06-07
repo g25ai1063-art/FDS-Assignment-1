@@ -1,0 +1,45 @@
+services:
+
+  node1:
+    build: .
+    container_name: node1  
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ID=1
+
+  node2:
+    build: .
+    container_name: node2
+    environment:
+      - NODE_ID=2
+
+  node3:
+    build: .
+    container_name: node3
+    environment:
+      - NODE_ID=3
+
+  node4:
+    build: .
+    container_name: node4
+    environment:
+      - NODE_ID=4
+
+  node5:
+    build: .
+    container_name: node5
+    environment:
+      - NODE_ID=5
+
+  client:
+    build: .
+    command: python src/client.py
+    depends_on:
+      - node1
+
+  adversary:
+    build: .
+    command: python src/adversary.py
+    depends_on:
+      - node1
